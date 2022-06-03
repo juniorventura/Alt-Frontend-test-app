@@ -1,21 +1,23 @@
-import React from "react";
+import React, { useState } from "react";
 import { useFormik } from 'formik';
 import { Employee } from "../models";
 import Button from "../components/button";
 
-const Form = ({name, lastname, id, title}: Employee) => {
+const Form = ({firstName, lastName, employeeId, title}: Employee) => {
   // Pass the useFormik() hook initial form values and a submit function that will
   // be called when the form is submitted
 
-  let initialValues: Employee = {
-    name: name ?  name : "",
-    lastname: lastname ?  lastname : "",
-    id: id ?  id : "",
-    title: title ? title : ""
-  }
+ 
+  const [initialValues] = useState<Employee>();
 
   const formik = useFormik({
-    initialValues,
+    initialValues: {
+      firstName: firstName ?  firstName : "",
+      lastName: lastName ?  lastName : "",
+      employeeId: employeeId ?  employeeId : 0,
+      title: title ? title : ""
+    },
+    enableReinitialize: true,
     onSubmit: values => {
       alert(JSON.stringify(values, null, 2));
     },
@@ -27,22 +29,22 @@ const Form = ({name, lastname, id, title}: Employee) => {
         <label className="mr-[10px]">Name:</label>
         <input
           className="border-b-2 border-bg-black"
-          id="name"
-          name="name"
+          id="firstName"
+          name="firstName"
           type="text"
           onChange={formik.handleChange}
-          value={formik.values.name}
+          value={formik.values.firstName}
         />
       </div>
       <div className="flex">
         <label className="mr-[10px]">Lastname:</label>
         <input
           className="border-b-2 border-bg-black"
-          id="lastname"
-          name="lastname"
+          id="lastName"
+          name="lastName"
           type="text"
           onChange={formik.handleChange}
-          value={formik.values.lastname}
+          value={formik.values.lastName}
         />
       </div>
       <div className="flex">
@@ -58,7 +60,7 @@ const Form = ({name, lastname, id, title}: Employee) => {
       </div>
       <div className="flex justify-center">
         <div className="w-[100px]">
-          <Button type="submit">Save</Button>
+          <Button onClick={() => {}} type="submit">Save</Button>
         </div>
       </div>
 

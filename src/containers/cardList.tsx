@@ -5,34 +5,20 @@ import Card from '../components/card';
 
 const CardList = ({
   data,
-  onCardClick
+  editHandler,
+  removeHandler
 }: {
   data: Employee[],
-  onCardClick: (e: Employee) => void
+  editHandler: (e: Employee) => void,
+  removeHandler: (id: number) => void
 }) => {
 
-  const [list, setList] = useState<Employee[]>();
-
-  useEffect(() => {
-    let array = [];
-    for(let i = 0; i < 20; i++) {
-      array.push({
-        name: "name " + i,
-        lastname: "lastname " + i,
-        title: "title " + i,
-        id: "id " + i
-      })
-    }
-    setList(array)
-
-  }, [])
-
-  if (!list) return <p>Loading...</p>
+  if (!data) return <p>Loading...</p>
 
   return (
     <div className='flex flex-col p-[5px] w-full'>
-      {list.map(employee => {
-      return <Card onClick={onCardClick} key={employee.id} {...employee} />
+      {data.map(employee => {
+      return <Card editHandler={editHandler} removeHandler={removeHandler} key={employee.employeeId} {...employee} />
     })}
     </div>
   )
